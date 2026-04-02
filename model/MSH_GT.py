@@ -82,7 +82,6 @@ class MSH_GraphConv(nn.Module):
         out = []
         for i in range(self.num_layers):
             x_down = self.conv_down[i](x)
-            # 图卷积子集
             y = [self.conv_layers[i][j](torch.einsum('n c t u, v u -> n c t v', x_down, self.PA[i, j]))
                  for j in range(self.num_subset)]
             y.append(self.conv_layers[i][-1](x_down))   # EdgeConv
